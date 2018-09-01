@@ -12,7 +12,7 @@ typedef struct
 	eventId id;	//se usa para las teclas
 }eventType;
 
-typedef enum { NO_ERROR, TIMER_ERR, QUEUE_ERR }errType;
+typedef enum { NO_ERROR, TIMER_ERR, QUEUE_ERR , KEYBOARD_ERR, }errType;
 
 typedef struct
 {

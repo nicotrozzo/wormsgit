@@ -14,14 +14,29 @@ int main(void)
 	if (al_init())	//inicializa allegro en el main porque lo usan dos clases
 	{
 		srand(time(NULL));
-		eventGenerator ev;
-		worm ws[2];
-		while (!ev.quit())
+		graphics graph;
+		if (graph.error() == NO_ERROR)
 		{
-			if (ev.hayEvento())
+			eventGenerator ev(graph.getDisplay());	//le envia un puntero al display para que reciba los eventos
+			if (ev.getError() == NO_ERROR)
 			{
-				dispatch(ev.getEvent());
+				worm ws[2];
+				while (!ev.quit())
+				{
+					if (ev.hayEvento())
+					{
+						dispatch(ev.getEvent());
+					}
+				}
 			}
+			else
+			{
+
+			}
+		}
+		else
+		{
+
 		}
 	}
 	else
