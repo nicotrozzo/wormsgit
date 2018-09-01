@@ -5,6 +5,8 @@
 #include "worm.h"
 #include "graphics.h"
 
+#define FPS 50.0
+
 void dispatch();
 
 using namespace std;
@@ -14,20 +16,25 @@ int main(void)
 	if (al_init())	//inicializa allegro en el main porque lo usan dos clases
 	{
 		srand(time(NULL));
+		worm *ws[2];
 		graphics graph;
 		if (graph.error() == NO_ERROR)
 		{
-			eventGenerator ev(graph.getDisplay());	//le envia un puntero al display para que reciba los eventos
+			eventGenerator ev(graph.getDisplayPointer(),FPS);	//le envia un puntero al display para que reciba los eventos
 			if (ev.getError() == NO_ERROR)
 			{
-				worm ws[2];
+				worm w1,w2;
+				ws[0] = &w1;
+				ws[1] = &w2;
+				ev.startTimer();
 				while (!ev.quit())
 				{
-					if (ev.hayEvento())
+					if (ev.eventPresent())
 					{
 						dispatch(ev.getEvent());
 					}
 				}
+				ev.destroy();
 			}
 			else
 			{

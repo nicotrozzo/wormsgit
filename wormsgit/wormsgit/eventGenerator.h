@@ -4,12 +4,12 @@
 
 using namespace std;
 typedef enum { NO_EVENTID, KEY_RIGHT, KEY_UP, KEY_LEFT, KEY_D, KEY_W, KEY_A }eventId;
-typedef enum { NO_EVENT, POSSIBLE_WORM_MOVE, POSSIBLE_WORM_STOP, REFRESH, CLOSE_DISPLAY }eventNum;
+typedef enum { NO_EVENT, POSSIBLE_WORM_MOVE, POSSIBLE_WORM_STOP, REFRESH}eventNum;
 
 typedef struct
 {
-	eventNum num;
-	eventId id;	//se usa para las teclas
+	eventNum type;
+	eventId key;	//se usa para las teclas
 }eventType;
 
 typedef enum { NO_ERROR, TIMER_ERR, QUEUE_ERR , KEYBOARD_ERR, }errType;
@@ -23,19 +23,21 @@ typedef struct
 class eventGenerator
 {
 public:
-	eventGenerator();
+	eventGenerator(ALLEGRO_DISPLAY*,double);
 	bool quit();
 	bool eventPresent();
 	eventType getEvent();
+	void startTimer();
 	void destroy();
 
 private:
 	ALLEGRO_EVENT_QUEUE * queue;
 	ALLEGRO_TIMER *timer;
-	ALLEGRO_EVENT ev;
-	bool quit;
+	ALLEGRO_EVENT alEvent;
+	bool close;
 	eventError err;
-
+	eventType ev;
+	bool allegroToEvent();
+	eventId allegroKeyToEventId();
 
 };
-
