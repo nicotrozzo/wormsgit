@@ -72,28 +72,28 @@ bool eventGenerator::allegroToEvent()
 	bool ret = false;
 	switch (alEvent.type)
 	{
-	case ALLEGRO_EVENT_TIMER:
-		ev.type = REFRESH;
-		ret = true;
-		break;
-	case ALLEGRO_EVENT_DISPLAY_CLOSE:	//si apretaron para cerrar el display, la proxima ves que le pregunten avisa que hay que salir
-		ev.type = NO_EVENT;
-		close = true;
-		break;
-	case ALLEGRO_KEY_DOWN:	//si apretaron una tecla, se fija que sea una de las que espera
-		if( (ev.key = allegroKeyToEventId()) != NO_EVENTID )
-		{
-			ev.type = POSSIBLE_WORM_MOVE;
+		case ALLEGRO_EVENT_TIMER:
+			ev.type = REFRESH;
 			ret = true;
-		}
-		break;
-	case ALLEGRO_KEY_UP:	//si soltaron una tecla, se fija que sea una de las que espera
-		if( (ev.key = allegroKeyToEventId()) != NO_EVENTID)
-		{
-			ev.type = POSSIBLE_WORM_STOP;
-			ret = true;
-		}
-		break;
+			break;
+		case ALLEGRO_EVENT_DISPLAY_CLOSE:	//si apretaron para cerrar el display, la proxima vez que le pregunten avisa que hay que salir
+			ev.type = NO_EVENT;
+			close = true;
+			break;
+		case ALLEGRO_KEY_DOWN:	//si apretaron una tecla, se fija que sea una de las que espera
+			if( (ev.key = allegroKeyToEventId()) != NO_EVENTID )
+			{
+				ev.type = POSSIBLE_WORM_MOVE;
+				ret = true;
+			}
+			break;
+		case ALLEGRO_KEY_UP:	//si soltaron una tecla, se fija que sea una de las que espera
+			if( (ev.key = allegroKeyToEventId()) != NO_EVENTID)
+			{
+				ev.type = POSSIBLE_WORM_STOP;
+				ret = true;
+			}
+			break;
 	}
 	return ret;
 }
@@ -131,6 +131,11 @@ eventId eventGenerator::allegroKeyToEventId()
 eventType eventGenerator::getEvent()
 {
 	return ev;
+}
+
+eventError eventGenerator :: getError()
+{
+	return err;
 }
 
 void eventGenerator::destroy()

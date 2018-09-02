@@ -8,7 +8,7 @@ worm::worm(double xmin,double xmax, double floor, eventId left, eventId right, e
 	xMin = xmin;
 	xMax = xmax;
 	yFloor = floor;
-	pos.x = (rand() % (xmax - xmin)) + xmin;
+	pos.x = (rand() %  (int)(xmax - xmin)) + xmin;
 	pos.y = floor;
 	lookingRight = (bool)(rand() % 2);
 	state = IDLE;
@@ -143,9 +143,31 @@ void worm::jump_update()
 	switch (jumpState)
 	{
 	case START_JUMPING:
-		if()
+		if (frameCount == 5)
+		{
+			jumpState = JUMPING;
+		}
 		break;
 	case JUMPING:
+		if ((frameCount == 50) || (frameCount == 36) || (frameCount == 22))
+		{
+			pos.y += 15;
+		}
+		if (frameCount == 50)
+		{
+			jumpState == FALLING;
+		}
+		break;
+	case FALLING:
+		if ((frameCount == 50) || (frameCount == 36) || (frameCount == 22))
+		{
+			pos.y -= 15;
+		}
+		if (frameCount == 50)
+		{
+			state = IDLE;
+			frameCount = 0;
+		}
 		break;
 	}
 }

@@ -31,6 +31,7 @@ public:
 	eventType getEvent();
 	void startTimer();
 	void destroy();
+	eventError getError();
 
 private:
 	ALLEGRO_EVENT_QUEUE * queue;

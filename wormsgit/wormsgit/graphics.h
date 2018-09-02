@@ -16,7 +16,8 @@ class graphics
 public:
 	graphics();
 	void draw();
-
+	ALLEGRO_DISPLAY * getDisplayPointer();
+	graphError getGraphError();
 private:
 	ALLEGRO_DISPLAY * display;
 	ALLEGRO_BITMAP * wormWalking[15];

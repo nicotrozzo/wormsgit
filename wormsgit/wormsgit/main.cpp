@@ -9,7 +9,7 @@
 #define FLOOR_Y 616
 #define X_MAX 1212
 #define X_MIN 701
-
+#define CANTWORMS 2
 void dispatch();
 
 using namespace std;
@@ -21,9 +21,9 @@ int main(void)
 	if (al_init())	//inicializa allegro en el main porque lo usan dos clases
 	{
 		srand(time(NULL));
-		worm *ws[2];
+		worm *ws[CANTWORMS];
 		graphics graph;
-		if (graph.error() == NO_ERROR)
+		if (graph.getGraphError() == NO_ERROR)
 		{
 			eventGenerator ev(graph.getDisplayPointer(),FPS);	//le envia un puntero al display para que reciba los eventos
 			if (ev.getError() == NO_ERROR)
@@ -36,7 +36,7 @@ int main(void)
 				{
 					if (ev.eventPresent())
 					{
-						dispatch(ev.getEvent());
+						dispatch(ev.getEvent(),ws,CANTWORMS,graph.getDisplayPointer());
 					}
 				}
 				ev.destroy();

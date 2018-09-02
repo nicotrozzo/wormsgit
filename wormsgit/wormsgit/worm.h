@@ -5,7 +5,7 @@
 
 typedef enum {IDLE,MOVE,JUMP}wormState;
 typedef enum {START_MOVING,MOVING,STOP_MOVING}movState;
-typedef enum{START_JUMPING,JUMPING}jmpState;
+typedef enum{START_JUMPING,JUMPING,FALLING}jmpState;
 
 typedef struct
 {
@@ -38,6 +38,7 @@ public:
 	void stopWorm(eventId key);
 	void update();
 	void move_update();
+	void jump_update();
 private:
 	wormKeys moveKeys;
 	wormState state;	//este estado solo indica si esta quieto, caminando o saltando

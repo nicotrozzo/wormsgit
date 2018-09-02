@@ -63,6 +63,16 @@ graphics::graphics()
 	}
 }
 
+ALLEGRO_DISPLAY * graphics::getDisplayPointer(void)
+{
+	return display;
+}
+
+graphError graphics::getGraphError()
+{
+	return err;
+}
+
 void graphics::draw()
 {
 
