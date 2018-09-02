@@ -67,6 +67,11 @@ void worm::moveWorm(eventId key)
 	}
 }
 
+wormState worm::getState()
+{
+	return state;
+}
+
 void worm::stopWorm(eventId key)
 {
 	switch (state)
@@ -151,7 +156,7 @@ void worm::jump_update()
 	case JUMPING:
 		if ((frameCount == 50) || (frameCount == 36) || (frameCount == 22))
 		{
-			pos.y += 15;
+			pos.y += 9;
 		}
 		if (frameCount == 50)
 		{
@@ -161,7 +166,7 @@ void worm::jump_update()
 	case FALLING:
 		if ((frameCount == 50) || (frameCount == 36) || (frameCount == 22))
 		{
-			pos.y -= 15;
+			pos.y -= 9;
 		}
 		if (frameCount == 50)
 		{
