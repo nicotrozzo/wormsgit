@@ -3,8 +3,10 @@
 #include <iostream>
 
 using namespace std;
+
 typedef enum { NO_EVENTID, KEY_RIGHT, KEY_UP, KEY_LEFT, KEY_D, KEY_W, KEY_A }eventId;
 typedef enum { NO_EVENT, POSSIBLE_WORM_MOVE, POSSIBLE_WORM_STOP, REFRESH}eventNum;
+typedef enum { NO_ERROR, TIMER_ERR, QUEUE_ERR, KEYBOARD_ERR, }evErrType;
 
 typedef struct
 {
@@ -12,18 +14,18 @@ typedef struct
 	eventId key;	//se usa para las teclas
 }eventType;
 
-typedef enum { NO_ERROR, TIMER_ERR, QUEUE_ERR , KEYBOARD_ERR, }errType;
+
 
 typedef struct
 {
-	errType type;
+	evErrType type;
 	string detail;
 }eventError;
 
 class eventGenerator
 {
 public:
-	eventGenerator(ALLEGRO_DISPLAY*,double);
+	eventGenerator(ALLEGRO_DISPLAY* display,double);
 	bool quit();
 	bool eventPresent();
 	eventType getEvent();

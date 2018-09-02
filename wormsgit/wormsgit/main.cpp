@@ -6,10 +6,15 @@
 #include "graphics.h"
 
 #define FPS 50.0
+#define FLOOR_Y 616
+#define X_MAX 1212
+#define X_MIN 701
 
 void dispatch();
 
 using namespace std;
+
+
 
 int main(void)
 {
@@ -23,7 +28,7 @@ int main(void)
 			eventGenerator ev(graph.getDisplayPointer(),FPS);	//le envia un puntero al display para que reciba los eventos
 			if (ev.getError() == NO_ERROR)
 			{
-				worm w1,w2;
+				worm w1(X_MIN,X_MAX,FLOOR_Y,KEY_A,KEY_D,KEY_W),w2(X_MIN, X_MAX, FLOOR_Y,KEY_LEFT,KEY_RIGHT,KEY_UP);	//el worm 1 se mueve con las letras y el 2 con las flechitas
 				ws[0] = &w1;
 				ws[1] = &w2;
 				ev.startTimer();
@@ -53,22 +58,29 @@ int main(void)
 }
 
 
-void dispatch(eventType ev)
+void dispatch(eventType ev,worm* worms[],int wormCount,graphics *graph)
 {
-	switch (ev.num)
+	unsigned int i;
+	switch (ev.type)
 	{
 	case POSSIBLE_WORM_MOVE:
-		if ()
-
-			break;
-	case POSSIBLE_WORM_STOP:
-
+		for (i = 0; i < wormCount; i++)
+		{
+			worms[i]->moveWorm(ev.key);
+		}
 		break;
-	case CLOSE_DISPLAY:
-
+	case POSSIBLE_WORM_STOP:
+		for (i = 0; i < wormCount; i++)
+		{
+			worms[i]->stopWorm(ev.key);
+		}
 		break;
 	case REFRESH:
-
+		for (i = 0; i < wormCount; i++)
+		{
+			worms[i]->update();
+		}
+		graph->draw();
 		break;
 	}
 }
