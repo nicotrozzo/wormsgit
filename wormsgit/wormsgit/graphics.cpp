@@ -63,9 +63,26 @@ graphics::graphics()
 	}
 }
 
+void graphics::setWpointer(worm *wPointer[])
+{
+	ws[0] = wPointer[0];
+	ws[1] = wPointer[1];
+}
 ALLEGRO_DISPLAY * graphics::getDisplayPointer(void)
 {
 	return display;
+}
+
+void graphics::draw()
+{
+	int i;
+	for (i = 0; i < 2; i++)
+	{
+
+	}
+
+
+
 }
 
 graphError graphics::getGraphError()

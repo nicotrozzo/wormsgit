@@ -31,6 +31,7 @@ int main(void)
 				worm w1(X_MIN,X_MAX,FLOOR_Y,KEY_A,KEY_D,KEY_W),w2(X_MIN, X_MAX, FLOOR_Y,KEY_LEFT,KEY_RIGHT,KEY_UP);	//el worm 1 se mueve con las letras y el 2 con las flechitas
 				ws[0] = &w1;
 				ws[1] = &w2;
+				graph.setWpointer(ws);
 				ev.startTimer();
 				while (!ev.quit())
 				{

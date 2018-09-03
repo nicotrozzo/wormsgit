@@ -5,7 +5,7 @@
 
 typedef enum {IDLE,MOVE,JUMP}wormState;
 typedef enum {START_MOVING,MOVING,STOP_MOVING}movState;
-typedef enum{START_JUMPING,JUMPING,FALLING}jmpState;
+typedef enum{START_JUMPING,JUMPING}jmpState;
 
 typedef struct
 {
@@ -13,17 +13,12 @@ typedef struct
 	double y;
 }posType;
 
-typedef struct
-{
-	eventId key;
-	bool pressed;
-}wKey;
 
 typedef struct  //aca se cargaran las teclas con las que el worm hara cada movimiento
 {
-	wKey left;
-	wKey up;
-	wKey right;
+	eventId left;
+	eventId up;
+	eventId right;
 }wormKeys;
 
 class worm
@@ -48,7 +43,7 @@ private:
 	double xMin;
 	double xMax;
 	double yFloor;
-	const double speed = 1.5;
+	const double speed = 4.5;
 	const double g = 0.24;
 	const double angle = M_PI / 3.0;
 	bool lookingRight;

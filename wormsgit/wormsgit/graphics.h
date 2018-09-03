@@ -15,6 +15,7 @@ class graphics
 {
 public:
 	graphics();
+	void setWpointer(worm *wPointer[]);
 	void draw();
 	ALLEGRO_DISPLAY * getDisplayPointer();
 	graphError getGraphError();
@@ -24,5 +25,6 @@ private:
 	ALLEGRO_BITMAP * wormJumping[10];
 	ALLEGRO_BITMAP * scenario;
 	graphError err;
+	worm *ws[2];
 };
 
