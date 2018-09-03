@@ -15,8 +15,6 @@ void dispatch(eventType ev, worm* worms[], unsigned int wormCount, graphics *gra
 
 using namespace std;
 
-
-
 int main(void)
 {
 	if (al_init())	//inicializa allegro en el main porque lo usan dos clases

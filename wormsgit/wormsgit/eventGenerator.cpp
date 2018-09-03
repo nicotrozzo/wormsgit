@@ -80,7 +80,7 @@ bool eventGenerator::allegroToEvent()
 			ev.type = NO_EVENT;
 			close = true;
 			break;
-		case ALLEGRO_KEY_DOWN:	//si apretaron una tecla, se fija que sea una de las que espera
+		case ALLEGRO_EVENT_KEY_DOWN:	//si apretaron una tecla, se fija que sea una de las que espera
 			if( (ev.key = allegroKeyToEventId()) != NO_EVENTID )
 			{
 				ev.type = POSSIBLE_WORM_MOVE;

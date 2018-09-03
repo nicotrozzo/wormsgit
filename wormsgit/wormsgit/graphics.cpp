@@ -13,64 +13,64 @@ graphics::graphics()
 		string filename = "wwalk-F1.png";
 		char number[3];
 		size_t len = 1;
-		for (int i = 0; (i < 15) && !error; i++)
+		display = al_create_display(1920,696);
+		if(display != NULL)
 		{
-			wormWalking[i] = al_load_bitmap(filename.c_str());
-			if (wormWalking[i] != NULL)
+			for (int i = 0; (i < 15) && !error; i++)
 			{
-				sprintf(number, "%d", i+2);
-				filename.replace(strlen("wwalk_F"), (size_t)len, number);  //cambia el nombre al del siguiente archivo	
-				if (i == 8)
+				wormWalking[i] = al_load_bitmap(filename.c_str());
+				if (wormWalking[i] != NULL)
 				{
-					len++;
-				}
-			}
-			else
-			{
-				error = true;
-				err.type = BITMAP_ERR;
-				err.detail = "Error al cargar bitmap de worm caminando";
-			}
-		}
-		filename = "wjump-F1.png";
-		for (int i = 0; (i < 10) && !error; i++)
-		{
-			wormJumping[i] = al_load_bitmap(filename.c_str());
-			if (wormJumping[i] != NULL)
-			{
-				sprintf(number, "%d", i + 2);
-				filename.replace(strlen("wjump_F"), (size_t)1, number);  //cambia el nombre al del siguiente archivo	
-			}
-			else
-			{
-				error = true;
-				err.type = BITMAP_ERR;
-				err.detail = "Error al cargar bitmap de worm saltando";
-			}
-		}
-		if (!error)
-		{
-			scenario = al_load_bitmap("Scenario.png");
-			if (scenario != NULL)
-			{
-				display = al_create_display(al_get_bitmap_width(scenario), al_get_bitmap_height(scenario));
-				if (display != NULL)
-				{
-					al_draw_bitmap(scenario, 0, 0, 0);
+					sprintf(number, "%d", i+2);
+					filename.replace(strlen("wwalk_F"), (size_t)len, number);  //cambia el nombre al del siguiente archivo	
+					if (i == 8)
+					{
+						len++;
+					}
 				}
 				else
 				{
 					error = true;
-					err.type = DISPLAY_ERR;
-					err.detail = "Error al crear display";
+					err.type = BITMAP_ERR;
+					err.detail = "Error al cargar bitmap de worm caminando";
 				}
 			}
-			else
+			filename = "wjump-F1.png";
+			for (int i = 0; (i < 10) && !error; i++)
 			{
-				destroy();	//borra todos los bitmaps cargados
-				err.type = BITMAP_ERR;
-				err.detail = "Error al cargar el bitmap del escenario";
+				wormJumping[i] = al_load_bitmap(filename.c_str());
+				if (wormJumping[i] != NULL)
+				{
+					sprintf(number, "%d", i + 2);
+					filename.replace(strlen("wjump_F"), (size_t)1, number);  //cambia el nombre al del siguiente archivo	
+				}
+				else
+				{
+					error = true;
+					err.type = BITMAP_ERR;
+					err.detail = "Error al cargar bitmap de worm saltando";
+				}
 			}
+			if (!error)
+			{
+				scenario = al_load_bitmap("Scenario.png");
+				if (scenario != NULL)
+				{
+					al_draw_bitmap(scenario, 0, 0, 0);
+					err.type = NO_GRAPH_ERR;
+				}
+				else
+				{
+					destroy();	//borra todos los bitmaps cargados
+					err.type = BITMAP_ERR;
+					err.detail = "Error al cargar el bitmap del escenario";
+				}
+			}
+		}
+		else
+		{
+			err.type = DISPLAY_ERR;
+			err.detail = "Error al crear display";		
 		}
 	}
 	else
@@ -93,6 +93,8 @@ ALLEGRO_DISPLAY * graphics::getDisplayPointer(void)
 void graphics::draw()
 {
 	int i;
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	al_draw_bitmap(scenario, 0, 0, 0);
 	for (i = 0; i < 2; i++)
 	{
 		if (ws[i]->getState() == MOVING)
@@ -106,7 +108,7 @@ void graphics::draw()
 				al_draw_bitmap(wormWalking[getNumberOfMovingBitmap(ws[i]->getFrameCount())], (ws[i]->getPos()).x, (ws[i]->getPos()).y,0);
 			}
 		}
-		else if (ws[i]->getState() == JUMPING)
+		else if (ws[i]->getState() == JUMP)
 		{
 			if (ws[i]->isLookingRight())
 			{

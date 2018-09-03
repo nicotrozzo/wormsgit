@@ -39,11 +39,13 @@ void worm::moveWorm(eventId key)
 	case IDLE:
 		if (key == moveKeys.up)
 		{
+			frameCount = 0;
 			state = JUMP;
 			jumpState = START_JUMPING;
 		}
 		else if((key == moveKeys.left) || (key == moveKeys.right))
 		{
+			frameCount = 0;
 			lookingRight = (key == moveKeys.right);	//true si apretaron para ir a la derecha, false si apretaron a la izquierda
 			state = MOVE;
 			moveState = START_MOVING;
@@ -79,13 +81,15 @@ void worm::stopWorm(eventId key)
 			}
 			else if(moveState == START_MOVING)
 			{
+				frameCount = 0;
 				state = IDLE;
 			}
 		}
 		break;
 	case JUMP:
-		if (jumpState == START_JUMPING)	//solo le interesa que suelten la tecla si esta por empezar a saltar
+		if( (jumpState == START_JUMPING) && (key == moveKeys.up) )	//solo le interesa que suelten la tecla si esta por empezar a saltar
 		{
+			frameCount = 0;
 			state = IDLE;
 		}
 		break;		//si esta en idle no hace nada con la tecla que soltaron
@@ -104,6 +108,11 @@ void worm::update()
 	case JUMP:
 		jump_update();
 		break;			//si esta en IDLE no hace nada con el evento de timer
+	case IDLE:
+		if (frameCount >= 50)
+		{
+			frameCount = 0;
+		}
 	}
 
 }
@@ -180,6 +189,7 @@ void worm::jump_update()
 		if (frameCount == 6)
 		{
 			state = IDLE;
+			frameCount = 0;
 		}
 		break;
 	}
