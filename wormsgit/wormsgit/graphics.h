@@ -19,6 +19,7 @@ public:
 	void draw();
 	ALLEGRO_DISPLAY * getDisplayPointer();
 	graphError getGraphError();
+	void destroy();
 private:
 	ALLEGRO_DISPLAY * display;
 	ALLEGRO_BITMAP * wormWalking[15];
@@ -26,5 +27,8 @@ private:
 	ALLEGRO_BITMAP * scenario;
 	graphError err;
 	worm *ws[2];
+	unsigned int getNumberOfMovingBitmap(unsigned int frameCount);
+	unsigned int getNumberOfJumpingBitmap(unsigned int frameCount, jmpState state);
+
 };
 

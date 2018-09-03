@@ -14,8 +14,6 @@ typedef struct
 	eventId key;	//se usa para las teclas
 }eventType;
 
-
-
 typedef struct
 {
 	evErrType type;

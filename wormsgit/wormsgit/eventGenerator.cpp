@@ -15,7 +15,7 @@ eventGenerator::eventGenerator(ALLEGRO_DISPLAY *display,double fps)	//recibe pun
 		if (queue != NULL)
 		{
 			timer = al_create_timer(1.0 / fps);
-			if (timer != 0)
+			if (timer != NULL)
 			{
 				err.type = NO_ERROR;
 				al_register_event_source(queue, al_get_timer_event_source(timer));
@@ -87,7 +87,7 @@ bool eventGenerator::allegroToEvent()
 				ret = true;
 			}
 			break;
-		case ALLEGRO_KEY_UP:	//si soltaron una tecla, se fija que sea una de las que espera
+		case ALLEGRO_EVENT_KEY_UP:	//si soltaron una tecla, se fija que sea una de las que espera
 			if( (ev.key = allegroKeyToEventId()) != NO_EVENTID)
 			{
 				ev.type = POSSIBLE_WORM_STOP;

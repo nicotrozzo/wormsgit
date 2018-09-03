@@ -5,7 +5,7 @@
 
 typedef enum {IDLE,MOVE,JUMP}wormState;
 typedef enum {START_MOVING,MOVING,STOP_MOVING}movState;
-typedef enum{START_JUMPING,JUMPING}jmpState;
+typedef enum{START_JUMPING,JUMPING,LANDING}jmpState;
 
 typedef struct
 {
@@ -27,6 +27,7 @@ public:
 	worm(double xmin,double xmax,double floor,eventId left,eventId right,eventId up);
 	posType getPos();
 	wormState getState();
+	jmpState getJmpState();
 	unsigned int getFrameCount();
 	bool isLookingRight();
 	void moveWorm(eventId key);
@@ -47,7 +48,6 @@ private:
 	const double g = 0.24;
 	const double angle = M_PI / 3.0;
 	bool lookingRight;
-	unsigned int frameCount;
-	
+	unsigned int frameCount;	
 };
 

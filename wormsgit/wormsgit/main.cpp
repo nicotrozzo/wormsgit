@@ -10,7 +10,8 @@
 #define X_MAX 1212
 #define X_MIN 701
 #define CANTWORMS 2
-void dispatch();
+
+void dispatch(eventType ev, worm* worms[], unsigned int wormCount, graphics *graph);
 
 using namespace std;
 
@@ -23,10 +24,10 @@ int main(void)
 		srand(time(NULL));
 		worm *ws[CANTWORMS];
 		graphics graph;
-		if (graph.getGraphError() == NO_ERROR)
+		if( (graph.getGraphError()).type == NO_GRAPH_ERR)
 		{
 			eventGenerator ev(graph.getDisplayPointer(),FPS);	//le envia un puntero al display para que reciba los eventos
-			if (ev.getError() == NO_ERROR)
+			if( (ev.getError()).type == NO_ERROR)
 			{
 				worm w1(X_MIN,X_MAX,FLOOR_Y,KEY_A,KEY_D,KEY_W),w2(X_MIN, X_MAX, FLOOR_Y,KEY_LEFT,KEY_RIGHT,KEY_UP);	//el worm 1 se mueve con las letras y el 2 con las flechitas
 				ws[0] = &w1;
@@ -37,19 +38,22 @@ int main(void)
 				{
 					if (ev.eventPresent())
 					{
-						dispatch(ev.getEvent(),ws,CANTWORMS,graph.getDisplayPointer());
+						dispatch(ev.getEvent(),ws,CANTWORMS,&graph);
 					}
 				}
 				ev.destroy();
+				graph.destroy();
 			}
 			else
 			{
-
+				cout << ((ev.getError()).detail).c_str() << endl;
+				getchar();
 			}
 		}
 		else
 		{
-
+			cout << ((graph.getGraphError()).detail).c_str() << endl;
+			getchar();
 		}
 	}
 	else
@@ -59,7 +63,7 @@ int main(void)
 }
 
 
-void dispatch(eventType ev,worm* worms[],int wormCount,graphics *graph)
+void dispatch(eventType ev,worm* worms[],unsigned int wormCount,graphics *graph)
 {
 	unsigned int i;
 	switch (ev.type)

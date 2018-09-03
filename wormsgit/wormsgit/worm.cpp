@@ -163,20 +163,29 @@ void worm::jump_update()
 		}
 		break;
 	case JUMPING:
-		if (frameCount < 2 * speed*sin(angle) / g)
+		if (frameCount < 2 * speed*sin(angle) / g)	//si todavia no termino el tiro oblicuo
 		{
 			int signo = (lookingRight ? 1 : -1);	//determina el signo del movimiento
 			pos.y = yFloor - speed * sin(angle)*(frameCount - 8) + g / 2.0 * (frameCount - 8)*(frameCount - 8);	//formula de tiro oblicuo para la altura
 			pos.x += signo * speed*cos(angle); //formula de tiro oblicuo para la posicion horizontal
 		}
-		else
+		else	//sino, termino el tiro
 		{
 			pos.y = yFloor;
-			if (frameCount == ceil(2*speed*sin(angle)/g + 6) )
-			{
-				state = IDLE;
-			}
+			jumpState = LANDING;
+			frameCount = 0;
+		}
+		break;
+	case LANDING:
+		if (frameCount == 6)
+		{
+			state = IDLE;
 		}
 		break;
 	}
+}
+
+jmpState worm::getJmpState()
+{
+	return jumpState;
 }
