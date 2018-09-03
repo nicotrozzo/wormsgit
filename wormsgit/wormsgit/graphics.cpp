@@ -139,30 +139,37 @@ void graphics::draw()
 unsigned int graphics::getNumberOfMovingBitmap(unsigned int frameCount)
 {
 	unsigned int ret;
-	if (frameCount <= 6)
+	if (frameCount <= 5)
 	{
 		ret = 0;
 	}
-	else if (frameCount == 7)
+	else if (frameCount == 6)
 	{
 		ret = 1;
 	}
-	else if (frameCount == 8)
+	else if (frameCount == 7)
 	{
 		ret = 2;
 	}
 	else
 	{
 		frameCount -= 8;
-		if (frameCount > 14)	//pasa frameCount a la primera vuelta
+		if (frameCount >= 14)	//pasa frameCount a la primera vuelta
 		{
 			frameCount -= 14;
-			if (frameCount > 14)
+			if (frameCount >= 14)
 			{
 				frameCount -= 14;
 			}
 		}
-		ret = frameCount + 2;
+		if (frameCount == 13)
+		{
+			ret = 3;
+		}
+		else
+		{
+			ret = frameCount + 3;
+		}
 	}
 	return ret;
 }

@@ -176,7 +176,8 @@ void worm::jump_update()
 		{
 			int signo = (lookingRight ? 1 : -1);	//determina el signo del movimiento
 			pos.y = yFloor - speed * sin(angle)*(frameCount - 8) + g / 2.0 * (frameCount - 8)*(frameCount - 8);	//formula de tiro oblicuo para la altura
-			pos.x += signo * speed*cos(angle); //formula de tiro oblicuo para la posicion horizontal
+			if((pos.x + signo * speed*cos(angle) > xMin) && (pos.x + signo * speed*cos(angle) < xMax))
+				pos.x += signo * speed*cos(angle); //formula de tiro oblicuo para la posicion horizontal
 		}
 		else	//sino, termino el tiro
 		{

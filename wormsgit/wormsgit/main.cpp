@@ -7,8 +7,8 @@
 
 #define FPS 50.0
 #define FLOOR_Y 616
-#define X_MAX 1212
-#define X_MIN 701
+#define X_MAX 1159	//distinto que en la consigna para que se frene bien
+#define X_MIN 698
 #define CANTWORMS 2
 
 void dispatch(eventType ev, worm* worms[], unsigned int wormCount, graphics *graph);
